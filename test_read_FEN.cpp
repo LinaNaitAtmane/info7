@@ -5,7 +5,7 @@ using namespace std;
 
 #include "types.hpp" // contient enum Piece et Board
 #include "board.hpp" // contient read_FEN et print_board
-
+.\test_read_FEN  FEN1.txt
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -18,9 +18,8 @@ int main(int argc, char *argv[])
     Board T;
     empty(T); // initialise le plateau vide
 
-    read_FEN(T, filename); // lit le fichier FEN et remplit le plateau
+    read_FEN(T,filename) // lit le fichier FEN et remplit le plateau
     print_board(T);        // affiche le plateau
 
     return 0;
 }
-//./test_read_FEN FEN1.txt
