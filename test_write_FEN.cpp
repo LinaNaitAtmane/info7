@@ -2,8 +2,8 @@
 #include <fstream>
 #include <string>
 using namespace std;
-
 #include "types.hpp" // contient enum Piece et Board
+#include "view.hpp"
 #include "board.hpp" // contient write_FEN et start
 
 int main(int argc, char *argv[])

@@ -1,4 +1,6 @@
 #include "view.hpp"
+#include "types.hpp"
+#include "board.hpp" 
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -91,8 +93,8 @@ void write_FEN(Board T, string &filename)
         // Parcourt les colonnes de gauche a droite pour chaque rangee
         for (int j = 0; j < 8; j++)
         {
-            Piece p = T[i][j];
-            if (p == vide)
+            Piece piece = T[i][j];
+            if (piece == vide)
                 count++;
             else
             { // on écrit le nombre de cases vides précédentes puis on reinitialise a 0
@@ -101,7 +103,7 @@ void write_FEN(Board T, string &filename)
                     file << count;
                     count = 0;
                 }
-                switch (p)
+                switch (piece)
                 {
                 case r:
                     file << 'r';
@@ -235,9 +237,9 @@ void set_background(bool is_black)
     else
         cout << "\x1b[48;5;250m"; // fond gris clair pour case blanche
 }
-void set_foreground(Piece p)
+void set_foreground(Piece piece)
 {
-    switch (p)
+    switch (piece)
     {
     case r:
         cout << "\x1b[30m\u265C";

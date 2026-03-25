@@ -1,4 +1,6 @@
 #include "board.hpp"
+#include "types.hpp" 
+#include "view.hpp"
 #include <iostream>
 using namespace std;
 

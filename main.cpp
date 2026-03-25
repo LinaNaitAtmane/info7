@@ -7,7 +7,7 @@ int main()
 {
     Board board;
 
-    ;
+    start(board);
 
     cout << "Plateau initial :" << endl;
     print_board(board);

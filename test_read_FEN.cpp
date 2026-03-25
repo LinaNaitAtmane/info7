@@ -5,7 +5,7 @@ using namespace std;
 
 #include "types.hpp" // contient enum Piece et Board
 #include "board.hpp" // contient read_FEN et print_board
-.\test_read_FEN  FEN1.txt
+#include "view.cpp"
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -23,3 +23,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+//.\test_read_FEN  FEN1.txt
