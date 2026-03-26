@@ -1,6 +1,6 @@
 #include "view.hpp"
 #include "types.hpp"
-#include "board.hpp" 
+#include "board.hpp"
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -76,7 +76,7 @@ void print_board(Board T)
     // lettres en bas
     cout << "  a b c d e f g h" << endl;
 }
-void write_FEN(Board T, string &filename)
+void write_FEN(Board T, const string &filename)
 {
     ofstream file(filename);
     // Verifier que le fichier est bien ouvert
@@ -156,7 +156,7 @@ void write_FEN(Board T, string &filename)
     file.close();
 }
 
-void read_FEN(Board T, string &filename)
+void read_FEN(Board T, const string &filename)
 {
     ifstream file(filename);
     if (!file.is_open())
@@ -291,4 +291,17 @@ void print_square_color(int i, int j, Piece T[8][8])
     set_foreground(T[i][j]);
     cout << " ";       // espace pour bien encadrer la pièce
     cout << "\x1b[0m"; // reset couleurs après la case
+}
+// Affiche le plateau complet en couleur
+void print_board_color(Board T)
+{
+    cout << "  a  b  c  d  e  f  g  h" << endl;
+    for (int i = 7; i >= 0; i--)
+    {
+        cout << i + 1 << " ";
+        for (int j = 0; j < 8; j++)
+            print_square_color(i, j, T);
+        cout << " " << i + 1 << endl;
+    }
+    cout << "  a  b  c  d  e  f  g  h" << endl;
 }
