@@ -16,4 +16,3 @@ int get_mask(int i, int j, Mask M);
 void set_mask(int i, int j, Mask M, int val);
 
 #endif
-

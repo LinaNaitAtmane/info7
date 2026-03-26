@@ -317,11 +317,11 @@ void print_square_color(int i, int j, Piece T[8][8], Mask M)
         set_background(is_black_square);
     }
     else if (val == 1)
-        cout << "\x1b[48;5;20m";  // bleu foncé
+        cout << "\x1b[48;5;20m"; // bleu foncé
     else if (val == 2)
         cout << "\x1b[48;5;196m"; // rouge
     else if (val == 3)
-        cout << "\x1b[48;5;28m";  // vert
+        cout << "\x1b[48;5;28m"; // vert
     else
         cout << "\x1b[48;5;226m"; // jaune
 
@@ -343,5 +343,3 @@ void print_board_color(Board T, Mask M)
     }
     cout << "  a  b  c  d  e  f  g  h" << endl;
 }
-
-
