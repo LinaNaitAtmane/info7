@@ -305,3 +305,43 @@ void print_board_color(Board T)
     }
     cout << "  a  b  c  d  e  f  g  h" << endl;
 }
+// Affiche une case en tenant compte du masque
+void print_square_color(int i, int j, Piece T[8][8], Mask M)
+{
+    int val = M[i][j];
+
+    if (val == 0)
+    {
+        // fond classique noir/blanc
+        bool is_black_square = (i + j) % 2 == 0;
+        set_background(is_black_square);
+    }
+    else if (val == 1)
+        cout << "\x1b[48;5;20m";  // bleu foncé
+    else if (val == 2)
+        cout << "\x1b[48;5;196m"; // rouge
+    else if (val == 3)
+        cout << "\x1b[48;5;28m";  // vert
+    else
+        cout << "\x1b[48;5;226m"; // jaune
+
+    set_foreground(T[i][j]);
+    cout << " ";
+    cout << "\x1b[0m";
+}
+
+// Affiche le plateau complet avec masque
+void print_board_color(Board T, Mask M)
+{
+    cout << "  a  b  c  d  e  f  g  h" << endl;
+    for (int i = 7; i >= 0; i--)
+    {
+        cout << i + 1 << " ";
+        for (int j = 0; j < 8; j++)
+            print_square_color(i, j, T, M);
+        cout << " " << i + 1 << endl;
+    }
+    cout << "  a  b  c  d  e  f  g  h" << endl;
+}
+
+

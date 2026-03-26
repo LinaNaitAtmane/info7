@@ -17,5 +17,8 @@ void set_background(bool is_black);
 void set_foreground(Piece piece);
 void print_square_color(int i, int j, Piece T[8][8]);
 void print_board_color(Board T);
+void print_square_color(int i, int j, Piece T[8][8], Mask M);
+void print_board_color(Board T, Mask M);
+
 
 #endif // VIEW_HPP_

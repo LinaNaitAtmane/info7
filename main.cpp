@@ -1,37 +1,34 @@
+
 #include "board.hpp"
 #include "view.hpp"
+#include "mask.hpp"
 #include <iostream>
 using namespace std;
 
 int main()
 {
     Board board;
+    empty(board);
+    read_FEN(board, "FEN1.txt");
 
-    start(board);
+    // Créer un masque de test
+    Mask mask;
+    empty_mask(mask);
 
-    cout << "Plateau initial :" << endl;
-    print_board(board);
+    // Mettre des valeurs dans le masque pour tester
+    // val=1 (bleu) sur quelques cases
+    set_mask(4, 4, mask, 1);
+    set_mask(4, 3, mask, 1);
+    set_mask(5, 4, mask, 1);
+    // val=2 (rouge) sur d'autres
+    set_mask(7, 0, mask, 2);
+    set_mask(7, 7, mask, 2);
+    // val=3 (vert) sur d'autres
+    set_mask(0, 0, mask, 3);
+    set_mask(0, 7, mask, 3);
 
-    // déplacer 2 pièces noires
-    move_piece(1, 0, 3, 0, board); // pion a7 -> a5
-    move_piece(0, 1, 2, 2, board); // cavalier b8 -> c6
-
-    // déplacer 2 pièces blanches
-    move_piece(6, 0, 4, 0, board); // pion a2 -> a4
-    move_piece(7, 1, 5, 2, board); // cavalier b1 -> c3
-
-    cout << "\nPlateau après déplacements :" << endl;
-    print_board(board);
-
-    // tester write FEN
-    write_FEN(board, "FEN_test.txt");
-    cout << "\nFEN écrit dans FEN_test.txt" << endl;
-
-    // tester read FEN
-    Board newBoard;
-    read_FEN(newBoard, "FEN_test.txt");
-    cout << "\nLecture FEN :" << endl;
-    print_board(newBoard);
+    cout << "Plateau avec masque :" << endl;
+    print_board_color(board, mask);
 
     return 0;
 }
