@@ -233,9 +233,9 @@ void read_FEN(Board T, const string &filename)
 void set_background(bool is_black)
 {
     if (is_black)
-        cout << "\x1b[48;5;238m"; // fond gris foncé pour case noire
+        cout << "#D88700";
     else
-        cout << "\x1b[48;5;250m"; // fond gris clair pour case blanche
+        cout << "#FFAF60";
 }
 void set_foreground(Piece piece)
 {
@@ -306,30 +306,36 @@ void print_board_color(Board T)
     cout << "  a  b  c  d  e  f  g  h" << endl;
 }
 // Affiche une case en tenant compte du masque
+// Affiche une case en tenant compte du masque
 void print_square_color(int i, int j, Piece T[8][8], Mask M)
 {
     int val = M[i][j];
 
     if (val == 0)
     {
-        // fond classique noir/blanc
+        /* Fond classique : cases orange alternées (échiquier normal) */
         bool is_black_square = (i + j) % 2 == 0;
         set_background(is_black_square);
     }
     else if (val == 1)
-        cout << "\x1b[48;5;20m"; // bleu foncé
+        cout << "\x1b[48;5;20m"; /* BLEU     = case libre (déplacement possible) */
     else if (val == 2)
-        cout << "\x1b[48;5;196m"; // rouge
+        cout << "\x1b[48;5;196m"; /* ROUGE    = prise possible (pièce adverse)    */
     else if (val == 3)
-        cout << "\x1b[48;5;28m"; // vert
-    else
-        cout << "\x1b[48;5;226m"; // jaune
+        cout << "\x1b[48;5;28m"; /* VERT     = pièce non attaquée                */
+    else if (val == 4)
+        cout << "\x1b[48;5;130m"; /* MARRON   = autre information                 */
+    else if (val == 5)
+        cout << "\x1b[48;5;91m"; /* VIOLET   = autre information                 */
+    else if (val == 6)
+        cout << "\x1b[48;5;30m"; /* BLEU-VERT= pièces pouvant se déplacer        */
+    else if (val == 7)
+        cout << "\x1b[48;5;244m"; /* GRIS     = autre information                 */
 
     set_foreground(T[i][j]);
     cout << " ";
-    cout << "\x1b[0m";
+    cout << "\x1b[0m"; /* reset couleurs */
 }
-
 // Affiche le plateau complet avec masque
 void print_board_color(Board T, Mask M)
 {
@@ -341,5 +347,5 @@ void print_board_color(Board T, Mask M)
             print_square_color(i, j, T, M);
         cout << " " << i + 1 << endl;
     }
-    cout << "  a  b  c  d  e  f  g  h" << endl;
+    cout << "  a b c d e f g h" << endl;
 }
