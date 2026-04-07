@@ -7,9 +7,7 @@ using namespace std;
 #include "view.hpp"
 #include "mask.hpp"
 
-// ============================================================
-//  Fonctions de test (reprises des fichiers test*.cpp)
-// ============================================================
+//  Fonctions de test
 
 void test_read_FEN()
 {
@@ -40,7 +38,7 @@ void test_pawn()
     empty_mask(M);
     set_square(1, 4, T, P);
     set_square(2, 3, T, n); // cavalier noir en d3 : prise possible
-    highlight_possible_moves_pawn(1, 4, T, M);
+    highlight_possible_moves(1, 4, T, M);
     cout << "\n=== TEST PION ===" << endl;
     cout << "Pion blanc en e2 sur ligne de depart (cavalier noir en d3) :" << endl;
     print_board_color(T, M);
@@ -50,7 +48,7 @@ void test_pawn()
     empty_mask(M);
     set_square(6, 4, T, p);
     set_square(5, 5, T, B); // fou blanc en f6 : prise possible
-    highlight_possible_moves_pawn(6, 4, T, M);
+    highlight_possible_moves(6, 4, T, M);
     cout << "Pion noir en e7 sur ligne de depart (fou blanc en f6) :" << endl;
     print_board_color(T, M);
 
@@ -59,7 +57,7 @@ void test_pawn()
     empty_mask(M);
     set_square(3, 3, T, P);
     set_square(4, 3, T, n); // piece devant : bloque l'avance
-    highlight_possible_moves_pawn(3, 3, T, M);
+    highlight_possible_moves(3, 3, T, M);
     cout << "Pion blanc en d4 bloque par un cavalier noir en d5 :" << endl;
     print_board_color(T, M);
 }
@@ -73,7 +71,7 @@ void test_knight()
     empty_mask(M);
     set_square(3, 3, T, N);
     set_square(5, 4, T, p); // pion noir attaquable
-    highlight_possible_moves_knight(3, 3, T, M);
+    highlight_possible_moves(3, 3, T, M);
     cout << "\n=== TEST CAVALIER ===" << endl;
     cout << "Cavalier blanc en d4 (pion noir en e6) :" << endl;
     print_board_color(T, M);
@@ -88,7 +86,7 @@ void test_bishop()
     empty_mask(M);
     set_square(0, 2, T, B);
     set_square(2, 4, T, p); // pion noir en e3
-    highlight_possible_moves_bishop(0, 2, T, M);
+    highlight_possible_moves(0, 2, T, M);
     cout << "\n=== TEST FOU ===" << endl;
     cout << "Fou blanc en c1 (pion noir en e3) :" << endl;
     print_board_color(T, M);
@@ -104,7 +102,7 @@ void test_rook()
     set_square(3, 3, T, R);
     set_square(6, 3, T, p);
     set_square(3, 6, T, P); // pion allie bloque a droite
-    highlight_possible_moves_rook(3, 3, T, M);
+    highlight_possible_moves(3, 3, T, M);
     cout << "\n=== TEST TOUR ===" << endl;
     cout << "Tour blanche en d4 (pion noir en d7, pion blanc en g4) :" << endl;
     print_board_color(T, M);
@@ -134,7 +132,7 @@ void test_king()
     empty_mask(M);
     set_square(3, 4, T, K);
     set_square(3, 6, T, n); // cavalier noir a droite : prise possible
-    highlight_possible_moves_king(3, 4, T, M);
+    highlight_possible_moves(3, 4, T, M);
     cout << "\n=== TEST ROI ===" << endl;
     cout << "Test 1 - Roi blanc en e4 (cavalier noir en g4) :" << endl;
     print_board_color(T, M);
@@ -144,7 +142,7 @@ void test_king()
     empty_mask(M);
     set_square(7, 0, T, k);
     set_square(6, 0, T, R); // tour blanche : prise possible
-    highlight_possible_moves_king(7, 0, T, M);
+    highlight_possible_moves(7, 0, T, M);
     cout << "Test 2 - Roi noir en a8 (tour blanche en a7) :" << endl;
     print_board_color(T, M);
 }
