@@ -233,9 +233,13 @@ void read_FEN(Board T, const string &filename)
 void set_background(bool is_black)
 {
     if (is_black)
-        cout << "#D88700";
+    {
+        cout << "\x1b[48;5;130m";
+    }
     else
-        cout << "#FFAF60";
+    {
+        cout << "\x1b[48;5;215m";
+    }
 }
 void set_foreground(Piece piece)
 {

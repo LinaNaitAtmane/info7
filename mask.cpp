@@ -1,4 +1,5 @@
 #include "mask.hpp"
+#include "board.hpp"
 #include <iostream>
 using namespace std;
 
@@ -402,7 +403,7 @@ void highlight_possible_moves_pawn(int i, int j, Board T, Mask M)
     }
 }
 /////////////////
-/ Met en évidence(val = 1) toutes les pièces du joueur(couleur_blanche)
+// Met en évidence(val = 1) toutes les pièces du joueur(couleur_blanche)
 qui peuvent se déplacer
     // Une pièce "peut se déplacer" si son masque de déplacements contient au moins une case possible
     void highlight_movable_pieces(Board T, Mask M, bool couleur_blanche)
