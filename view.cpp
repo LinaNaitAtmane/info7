@@ -3,6 +3,7 @@
 #include "board.hpp"
 #include <iostream>
 #include <fstream>
+#include <clocale>
 using namespace std;
 
 void print_square(Piece piece)
@@ -212,9 +213,7 @@ void read_FEN(Board T, const string &filename)
 }
 
 // -----------------------------------------------------------------------
-// Fond de case : deux tons marron
-//   case foncee : 94  (marron fonce)
-//   case claire : 180 (marron clair / beige)
+// Fond marron fonce (94) ou marron clair (180)
 // -----------------------------------------------------------------------
 void set_background(bool is_dark_square)
 {
@@ -225,54 +224,52 @@ void set_background(bool is_dark_square)
 }
 
 // -----------------------------------------------------------------------
-// Couleur du texte des pieces :
-//   pieces noires -> texte noir gras  \x1b[1;30m
-//   pieces blanches -> texte blanc vif \x1b[1;97m
-// Les lettres ASCII sont utilisees a la place des symboles Unicode
-// pour eviter les problemes d'affichage dans certains terminaux
+// Symboles Unicode des pieces (bytes UTF-8 directs)
+// Blanc = texte blanc vif  \x1b[1;97m
+// Noir  = texte noir gras  \x1b[1;30m
 // -----------------------------------------------------------------------
 void set_foreground(Piece piece)
 {
     switch (piece)
     {
-    // Pieces noires : lettre minuscule, texte noir gras
-    case r:
-        cout << "\x1b[1;30m" << "r";
-        break;
-    case n:
-        cout << "\x1b[1;30m" << "n";
-        break;
-    case b:
-        cout << "\x1b[1;30m" << "b";
-        break;
-    case q:
-        cout << "\x1b[1;30m" << "q";
-        break;
-    case k:
-        cout << "\x1b[1;30m" << "k";
-        break;
-    case p:
-        cout << "\x1b[1;30m" << "p";
-        break;
-    // Pieces blanches : lettre majuscule, texte blanc vif
-    case R:
-        cout << "\x1b[1;97m" << "R";
-        break;
-    case N:
-        cout << "\x1b[1;97m" << "N";
-        break;
-    case B:
-        cout << "\x1b[1;97m" << "B";
-        break;
-    case Q:
-        cout << "\x1b[1;97m" << "Q";
-        break;
+    // Pieces blanches
     case K:
-        cout << "\x1b[1;97m" << "K";
-        break;
+        cout << "\x1b[1;97m" << "\xe2\x99\x94";
+        break; // ♔
+    case Q:
+        cout << "\x1b[1;97m" << "\xe2\x99\x95";
+        break; // ♕
+    case R:
+        cout << "\x1b[1;97m" << "\xe2\x99\x96";
+        break; // ♖
+    case B:
+        cout << "\x1b[1;97m" << "\xe2\x99\x97";
+        break; // ♗
+    case N:
+        cout << "\x1b[1;97m" << "\xe2\x99\x98";
+        break; // ♘
     case P:
-        cout << "\x1b[1;97m" << "P";
-        break;
+        cout << "\x1b[1;97m" << "\xe2\x99\x99";
+        break; // ♙
+    // Pieces noires
+    case k:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9a";
+        break; // ♚
+    case q:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9b";
+        break; // ♛
+    case r:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9c";
+        break; // ♜
+    case b:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9d";
+        break; // ♝
+    case n:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9e";
+        break; // ♞
+    case p:
+        cout << "\x1b[1;30m" << "\xe2\x99\x9f";
+        break; // ♟
     case vide:
         cout << " ";
         break;
@@ -283,14 +280,15 @@ void print_square_color(int i, int j, Piece T[8][8])
 {
     bool is_dark = (i + j) % 2 == 0;
     set_background(is_dark);
-    cout << " "; // espace gauche
+    cout << " ";
     set_foreground(T[i][j]);
-    cout << " "; // espace droite
+    cout << " ";
     cout << "\x1b[0m";
 }
 
 void print_board_color(Board T)
 {
+    setlocale(LC_ALL, "");
     cout << "   a  b  c  d  e  f  g  h" << endl;
     for (int i = 7; i >= 0; i--)
     {
@@ -304,10 +302,7 @@ void print_board_color(Board T)
 
 // -----------------------------------------------------------------------
 // Affichage avec masque
-//   val = 0 -> marron normal
-//   val = 1 -> BLEU fonce   = deplacement possible
-//   val = 2 -> ROUGE        = prise possible
-//   val = 3 -> VERT         = piece adverse non attaquee
+//   val=0 marron normal | val=1 bleu | val=2 rouge | val=3 vert
 // -----------------------------------------------------------------------
 void print_square_color(int i, int j, Piece T[8][8], Mask M)
 {
@@ -341,6 +336,7 @@ void print_square_color(int i, int j, Piece T[8][8], Mask M)
 
 void print_board_color(Board T, Mask M)
 {
+    setlocale(LC_ALL, "");
     cout << "   a  b  c  d  e  f  g  h" << endl;
     for (int i = 7; i >= 0; i--)
     {
