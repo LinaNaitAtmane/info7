@@ -1,50 +1,41 @@
-#ifndef MASK_HPP_
-#define MASK_HPP_
+#ifndef MASK_HPP
+#define MASK_HPP
 
 #include "types.hpp"
+#include "board.hpp"
 
-// Créer un masque sans information (valeurs non initialisées)
+// -----------------------------------------------------------------------
+// Opérations de base sur le masque
+// -----------------------------------------------------------------------
 void empty_mask(Mask M);
-
-// Réinitialiser un masque à 0
 void clear_mask(Mask M);
-
-// Lire le contenu d'une case du masque
 int get_mask(int i, int j, Mask M);
-
-// Modifier le contenu d'une case du masque
 void set_mask(int i, int j, Mask M, int val);
 
-// Calcule le masque des déplacements possibles de la pièce en (i,j)
-void highlight_possible_moves(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles du Roi en (i,j)
+// -----------------------------------------------------------------------
+// Déplacements possibles par pièce
+// -----------------------------------------------------------------------
 void highlight_possible_moves_king(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles de la Tour en (i,j)
 void highlight_possible_moves_rook(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles du Fou en (i,j)
 void highlight_possible_moves_bishop(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles de la Reine en (i,j)
 void highlight_possible_moves_queen(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles du Cavalier en (i,j)
 void highlight_possible_moves_knight(int i, int j, Board T, Mask M);
-
-// Calcule les déplacements possibles du Pion en (i,j)
 void highlight_possible_moves_pawn(int i, int j, Board T, Mask M);
 
-// Met en évidence toutes les pièces d'une couleur qui peuvent se déplacer (val=1)
-// couleur_blanche=true pour les blancs, false pour les noirs
+// Dispatcher général : appelle la bonne fonction selon la pièce en (i,j)
+void highlight_possible_moves(int i, int j, Board T, Mask M);
+
+// -----------------------------------------------------------------------
+// Fonctions avancées
+// -----------------------------------------------------------------------
+
+// Met en évidence les pièces du joueur (couleur_blanche) pouvant bouger
 void highlight_movable_pieces(Board T, Mask M, bool couleur_blanche);
 
-// Met en évidence toutes les pièces adverses pouvant être prises au prochain coup
-// couleur_blanche=true : cherche les pièces noires attaquables par les blancs
+// Met en évidence les pièces adverses pouvant être prises au prochain coup
 void highlight_attacked_pieces(Board T, Mask M, bool couleur_blanche);
 
-// Met en évidence toutes les pièces adverses pouvant prendre la pièce en (i,j)
+// Met en évidence les pièces adverses pouvant prendre la pièce en (i,j)
 void highlight_take_pieces(int i, int j, Board T, Mask M);
 
-#endif
+#endif // MASK_HPP

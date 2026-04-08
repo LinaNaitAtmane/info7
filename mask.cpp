@@ -44,15 +44,7 @@ void highlight_possible_moves_king(int i, int j, Board T, Mask M)
 
     Piece roi = get_square(i, j, T);
     // CORRECTION : on teste si la pièce est blanche (R..P) plutôt que (roi == K)
-    bool est_blanc;
-    if (roi == K)
-    {
-        est_blanc = true;
-    }
-    else
-    {
-        est_blanc = false;
-    }
+    bool est_blanc = (roi >= R && roi <= P);
 
     for (int d = 0; d < 8; d++)
     {
@@ -83,15 +75,8 @@ void highlight_possible_moves_rook(int i, int j, Board T, Mask M)
 
     Piece tour = get_square(i, j, T);
     // CORRECTION : détection couleur générique
-    bool est_blanc;
-    if (tour == R)
-    {
-        est_blanc = true;
-    }
-    else
-    {
-        est_blanc = false;
-    }
+    bool est_blanc = (tour >= R && tour <= P);
+
     for (int d = 0; d < 4; d++)
     {
         int ni = i + directions[d][0];
@@ -130,14 +115,7 @@ void highlight_possible_moves_bishop(int i, int j, Board T, Mask M)
 
     Piece fou = get_square(i, j, T);
     // CORRECTION : détection couleur générique (avant : fou == B uniquement)
-    if (fou == B)
-    {
-        est_blanc = true;
-    }
-    else
-    {
-        est_blanc = false;
-    }
+    bool est_blanc = (fou >= R && fou <= P);
 
     for (int d = 0; d < 4; d++)
     {
@@ -186,14 +164,7 @@ void highlight_possible_moves_knight(int i, int j, Board T, Mask M)
 
     Piece cavalier = get_square(i, j, T);
     // CORRECTION : détection couleur générique
-    if (cavalier == N)
-    {
-        est_blanc = true;
-    }
-    else
-    {
-        est_blanc = false;
-    }
+    bool est_blanc = (cavalier >= R && cavalier <= P);
 
     for (int d = 0; d < 8; d++)
     {
@@ -222,14 +193,7 @@ void highlight_possible_moves_knight(int i, int j, Board T, Mask M)
 void highlight_possible_moves_pawn(int i, int j, Board T, Mask M)
 {
     Piece pion = get_square(i, j, T);
-    if (pion == P)
-    {
-        est_blanc = true;
-    }
-    else
-    {
-        est_blanc = false;
-    }
+    bool est_blanc = (pion == P);
 
     int dir = est_blanc ? 1 : -1;
     // CORRECTION : ligne de départ blanc = 6, noir = 1
