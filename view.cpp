@@ -218,66 +218,38 @@ void read_FEN(Board T, const string &filename)
 void set_background(bool is_dark_square)
 {
     if (is_dark_square)
-        cout << "\x1b[48;5;94m";
+        cout << "\x1b[48;5;172m";  // orange foncé
     else
-        cout << "\x1b[48;5;180m";
+        cout << "\x1b[48;5;180m";  // orange clair
 }
 
-// -----------------------------------------------------------------------
-// Symboles Unicode des pieces (bytes UTF-8 directs)
-// Blanc = texte blanc vif  \x1b[1;97m
-// Noir  = texte noir gras  \x1b[1;30m
-// -----------------------------------------------------------------------
 void set_foreground(Piece piece)
 {
     switch (piece)
     {
-    // Pieces blanches
-    case K:
-        cout << "\x1b[1;97m" << "\xe2\x99\x94";
-        break; // ♔
-    case Q:
-        cout << "\x1b[1;97m" << "\xe2\x99\x95";
-        break; // ♕
-    case R:
-        cout << "\x1b[1;97m" << "\xe2\x99\x96";
-        break; // ♖
-    case B:
-        cout << "\x1b[1;97m" << "\xe2\x99\x97";
-        break; // ♗
-    case N:
-        cout << "\x1b[1;97m" << "\xe2\x99\x98";
-        break; // ♘
-    case P:
-        cout << "\x1b[1;97m" << "\xe2\x99\x99";
-        break; // ♙
-    // Pieces noires
-    case k:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9a";
-        break; // ♚
-    case q:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9b";
-        break; // ♛
-    case r:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9c";
-        break; // ♜
-    case b:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9d";
-        break; // ♝
-    case n:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9e";
-        break; // ♞
-    case p:
-        cout << "\x1b[1;30m" << "\xe2\x99\x9f";
-        break; // ♟
-    case vide:
-        cout << " ";
-        break;
+    // Pièces BLANCHES → texte blanc, symboles pleins
+    case K: cout << "\x1b[1;97m" << "\xe2\x99\x9a"; break; // ♚
+    case Q: cout << "\x1b[1;97m" << "\xe2\x99\x9b"; break; // ♛
+    case R: cout << "\x1b[1;97m" << "\xe2\x99\x9c"; break; // ♜
+    case B: cout << "\x1b[1;97m" << "\xe2\x99\x9d"; break; // ♝
+    case N: cout << "\x1b[1;97m" << "\xe2\x99\x9e"; break; // ♞
+    case P: cout << "\x1b[1;97m" << "\xe2\x99\x9f"; break; // ♟
+
+    // Pièces NOIRES → texte noir, symboles pleins
+    case k: cout << "\x1b[30m" << "\xe2\x99\x9a"; break;   // ♚
+    case q: cout << "\x1b[30m" << "\xe2\x99\x9b"; break;   // ♛
+    case r: cout << "\x1b[30m" << "\xe2\x99\x9c"; break;   // ♜
+    case b: cout << "\x1b[30m" << "\xe2\x99\x9d"; break;   // ♝
+    case n: cout << "\x1b[30m" << "\xe2\x99\x9e"; break;   // ♞
+    case p: cout << "\x1b[30m" << "\xe2\x99\x9f"; break;   // ♟
+
+    case vide: cout << " "; break;
     }
 }
 
 void print_square_color(int i, int j, Piece T[8][8])
 {
+    // a1 = case NOIRE : (i+j) pair → sombre
     bool is_dark = (i + j) % 2 == 0;
     set_background(is_dark);
     cout << " ";
@@ -300,33 +272,16 @@ void print_board_color(Board T)
     cout << "   a  b  c  d  e  f  g  h" << endl;
 }
 
-// -----------------------------------------------------------------------
-// Affichage avec masque
-//   val=0 marron normal | val=1 bleu | val=2 rouge | val=3 vert
-// -----------------------------------------------------------------------
 void print_square_color(int i, int j, Piece T[8][8], Mask M)
 {
     int val = M[i][j];
-
-    if (val == 0)
-    {
+    if (val == 0) {
         bool is_dark = (i + j) % 2 == 0;
         set_background(is_dark);
     }
-    else if (val == 1)
-        cout << "\x1b[48;5;20m";
-    else if (val == 2)
-        cout << "\x1b[48;5;196m";
-    else if (val == 3)
-        cout << "\x1b[48;5;28m";
-    else if (val == 4)
-        cout << "\x1b[48;5;130m";
-    else if (val == 5)
-        cout << "\x1b[48;5;91m";
-    else if (val == 6)
-        cout << "\x1b[48;5;30m";
-    else if (val == 7)
-        cout << "\x1b[48;5;244m";
+    else if (val == 1) cout << "\x1b[48;5;20m";
+    else if (val == 2) cout << "\x1b[48;5;196m";
+    else if (val == 3) cout << "\x1b[48;5;28m";
 
     cout << " ";
     set_foreground(T[i][j]);
