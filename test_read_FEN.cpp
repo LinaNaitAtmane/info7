@@ -3,11 +3,22 @@
 #include <string>
 using namespace std;
 
-#include "types.hpp" // contient enum Piece et Board
-#include "board.hpp" // contient read_FEN et print_board
+#include "types.hpp"
+#include "board.hpp"
 #include "view.hpp"
+
+// =============================================================================
+// test_read_FEN.cpp — Test de la lecture d'un fichier FEN
+// =============================================================================
+// Ce programme lit un fichier FEN passé en argument et affiche le plateau
+// correspondant en mode texte.
+//
+// Usage : ./test_read_FEN fichier_FEN.txt
+// Exemple : ./test_read_FEN FEN1.txt
+// =============================================================================
 int main(int argc, char *argv[])
 {
+    // On vérifie qu'un nom de fichier a été fourni en argument
     if (argc < 2)
     {
         cout << "Usage : " << argv[0] << " fichier_FEN.txt" << endl;
@@ -16,11 +27,9 @@ int main(int argc, char *argv[])
 
     string filename = argv[1];
     Board T;
-    empty(T); // initialise le plateau vide
-
-    read_FEN(T, filename); // lit le fichier FEN et remplit le plateau
-    print_board(T);        // affiche le plateau
+    empty(T);              // on vide d'abord le plateau
+    read_FEN(T, filename); // on remplit le plateau avec le contenu du fichier FEN
+    print_board(T);        // on affiche le résultat en texte simple
 
     return 0;
 }
-//.\test_read_FEN  FEN1.txt

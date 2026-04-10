@@ -1,5 +1,13 @@
-// test_queen.cpp : teste les déplacements possibles de la Reine
+// =============================================================================
+// testQueen.cpp — Test des déplacements de la Reine
+// =============================================================================
+// La reine combine les mouvements de la tour et du fou.
+// Elle peut donc se déplacer en ligne droite ET en diagonale.
+//
+// Ici : on charge la position FEN1 et on affiche les mouvements
+//       de la reine blanche qui s'y trouve.
 // Usage : ./test_queen
+// =============================================================================
 #include <iostream>
 using namespace std;
 #include "types.hpp"
@@ -12,13 +20,13 @@ int main()
     Board T;
     Mask M;
 
-    // Reine blanche en h5 ([4][7]) comme dans l'exemple du sujet
     empty(T);
     empty_mask(M);
+
+    // On charge la position depuis le fichier FEN
     read_FEN(T, "FEN1.txt");
-    // La dame blanche est en h5 dans FEN1
-    // On cherche sa position dans le FEN : rnbqkbnr/pppp1p1p/6p1/4p2Q/4P3/8/PPPP1PPP/RNB1KBNR
-    // Q est en h5 => [4][7]
+
+    // La reine blanche est en h5 dans FEN1, soit la case [4][7]
     highlight_possible_moves(4, 7, T, M);
     cout << "Reine blanche en h5 (FEN1) :" << endl;
     print_board_color(T, M);
